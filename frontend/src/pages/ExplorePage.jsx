@@ -29,9 +29,6 @@ function safeExploreRowDomId(id) {
   return String(id).replace(/[^a-zA-Z0-9_-]/g, "_");
 }
 
-/**
- * Yelp-style explore: list + sticky map, quick filter chips, sort, compact more-filters.
- */
 export default function ExplorePage() {
   const { isAuthenticated } = useAuth();
   const chat = useChatAssistant();
@@ -49,7 +46,6 @@ export default function ExplorePage() {
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
   const [draftFilters, setDraftFilters] = useState(defaultExploreFilters);
   const [dataSource, setDataSource] = useState("yelp"); // "yelp" | "local"
-  /** Set when Yelp fails but MySQL returned rows (otherwise error was silent). */
   const [yelpFallbackReason, setYelpFallbackReason] = useState("");
 
   const browseTitle = useMemo(() => {
@@ -121,8 +117,6 @@ export default function ExplorePage() {
       const localTotal =
         localSettled.status === "fulfilled" ? localSettled.value?.total ?? 0 : 0;
 
-      // Owner-added restaurants live in MySQL, so we always merge local DB results
-      // with Yelp results (prioritize local so users can find what they added).
       const mergedItems = [...localItems, ...yelpItems];
       const effectiveSort = effectiveSortBy(filters);
 
@@ -131,8 +125,6 @@ export default function ExplorePage() {
         numeric: true,
       });
 
-      // Yelp Fusion sort is not consistent with our internal "asc/desc" semantics for
-      // rating/name, especially after we merge Yelp + local results. So we enforce it here.
       if (effectiveSort === "name_asc" || effectiveSort === "name_desc") {
         const direction = effectiveSort === "name_asc" ? 1 : -1;
 
@@ -142,7 +134,6 @@ export default function ExplorePage() {
           const byName = collator.compare(an, bn);
           if (byName !== 0) return byName * direction;
 
-          // Stable tie-breaker so ordering doesn't jump between refreshes.
           const aid = a?.id != null ? String(a.id) : "";
           const bid = b?.id != null ? String(b.id) : "";
           return aid.localeCompare(bid) * direction;
@@ -159,7 +150,6 @@ export default function ExplorePage() {
           const bc = Number(b?.review_count) || 0;
           if (ac !== bc) return (ac - bc) * direction;
 
-          // Stable tie-breaker.
           const an = a?.name ? String(a.name) : "";
           const bn = b?.name ? String(b.name) : "";
           const byName = collator.compare(an, bn);
@@ -181,7 +171,6 @@ export default function ExplorePage() {
         return;
       }
 
-      // Yelp failed: if local has matches, show banner; otherwise show error.
       if (localItems.length) {
         setDataSource("local");
         setYelpFallbackReason(

@@ -17,9 +17,6 @@ function cuisineLine(tags) {
   return tags.slice(0, 3).join(" · ");
 }
 
-/**
- * Search result row: photo + dense listing copy (directory-style).
- */
 export default function RestaurantCard({
   restaurant,
   to,

@@ -6,9 +6,6 @@ function priceDots(level) {
   return "$".repeat(Math.min(4, level));
 }
 
-/**
- * Business header: wide photo, title + stars, quick facts strip.
- */
 export default function RestaurantHero({
   name,
   average_rating,

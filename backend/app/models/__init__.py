@@ -1,4 +1,3 @@
-# Import models so Alembic / metadata sees all tables
 from app.models.base import Base
 from app.models.chat_message import ChatMessage, ChatMessageRole
 from app.models.chat_session import ChatSession

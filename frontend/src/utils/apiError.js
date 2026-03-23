@@ -1,6 +1,3 @@
-/**
- * Normalize FastAPI error `detail` for display.
- */
 export function getApiErrorMessage(err, fallback = "Something went wrong") {
   const d = err?.response?.data?.detail;
   if (typeof d === "string") return d;

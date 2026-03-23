@@ -1,9 +1,5 @@
 import RecommendationCard from "./RecommendationCard";
 
-/**
- * Single chat bubble — user (right) vs assistant (left).
- * Assistant messages can include recommendation cards.
- */
 export default function ChatMessage({ message }) {
   const { role, content, recommendations = [], createdAt } = message;
   const isUser = role === "user";

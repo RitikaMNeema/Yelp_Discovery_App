@@ -3,9 +3,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { ROUTES } from "../../constants/routes";
 import LoadingSpinner from "./LoadingSpinner";
 
-/**
- * Wraps routes that require an authenticated **owner** account.
- */
 export default function OwnerRoute({ children }) {
   const { user, loading, isAuthenticated } = useAuth();
   const location = useLocation();

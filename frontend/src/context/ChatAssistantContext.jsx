@@ -3,9 +3,6 @@ import ChatWidget from "../components/chat/ChatWidget";
 
 const ChatAssistantContext = createContext(null);
 
-/**
- * Exposes `open()` and `sendText(text)` for the floating dining assistant.
- */
 export function ChatAssistantProvider({ children }) {
   const widgetRef = useRef(null);
   const api = useMemo(

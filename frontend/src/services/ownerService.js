@@ -1,8 +1,5 @@
 import { api } from "./api";
 
-/**
- * Owner dashboard — requires role `owner` and Bearer token.
- */
 
 export async function getOwnerDashboard() {
   const { data } = await api.get("/owner/dashboard");
@@ -14,15 +11,6 @@ export async function listOwnedRestaurants() {
   return data;
 }
 
-/**
- * All reviews across owned restaurants (read-only).
- * @param {object} opts
- * @param {number} [opts.restaurant_id]
- * @param {number} [opts.min_rating] 1–5
- * @param {string} [opts.sort_by] newest | oldest | rating_high | rating_low
- * @param {number} [opts.page]
- * @param {number} [opts.limit]
- */
 export async function listOwnerReviews(opts = {}) {
   const params = {
     sort_by: opts.sort_by || "newest",

@@ -29,8 +29,6 @@ function pointsFromRestaurants(restaurants) {
     }));
 }
 
-/** Fit map to markers (or default South Bay view). */
-/** Leaflet needs invalidateSize when the flex column gets its final height. */
 function MapResizeObserver({ observeRef }) {
   const map = useMap();
 
@@ -126,10 +124,6 @@ function Toolbar({ searchAsMapMoves, onSearchAsMapMovesChange, onFullscreen }) {
   );
 }
 
-/**
- * Yelp-style map column using OpenStreetMap tiles (free, no API key).
- * Listings need latitude/longitude from your API.
- */
 export default function YelpMapPanel({
   restaurants = [],
   highlightedId = null,

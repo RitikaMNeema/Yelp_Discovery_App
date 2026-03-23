@@ -1,6 +1,3 @@
-/**
- * Star display (1–5). Uses brand red for filled stars.
- */
 
 function formatCompactReviewCount(n) {
   const num = Number(n);
@@ -20,7 +17,6 @@ export default function RatingStars({
   size = "md",
   showNumber = false,
   reviewCount,
-  /** When true, review count shows like ``1.4k`` instead of ``1,400``. */
   compactReviewCount = false,
   variant = "default",
   className = "",

@@ -1,6 +1,3 @@
-/**
- * Keyword + location + red submit. Yelp-style `iconSubmit`: square red button with magnifying glass.
- */
 
 function MagnifyingGlassIcon({ className }) {
   return (
@@ -33,7 +30,6 @@ export default function SearchBar({
   className = "",
   findPlaceholder = "Explore Restaurant, Cafe, Bar",
   locationPlaceholder = "San Jose, CA",
-  /** Yelp results header: red square / tall button with icon only */
   iconSubmit = false,
 }) {
   const isHero = variant === "hero";

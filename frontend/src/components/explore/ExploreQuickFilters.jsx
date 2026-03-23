@@ -30,9 +30,6 @@ function SlidersIcon({ className }) {
   );
 }
 
-/**
- * Yelp-style chips: All (opens full filter drawer), Price, quick toggles.
- */
 export default function ExploreQuickFilters({ filters, onChange, onOpenFilters }) {
   const { price, sortBy, suggestedKids, suggestedGroups, suggestedOpenNow, suggestedApplePay } =
     filters;

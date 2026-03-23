@@ -44,13 +44,9 @@ def _extract_restaurant_open_query(message: str) -> tuple[str, str] | None:
         return None
 
     patterns: list[tuple[str, int, int]] = [
-        # is <name> in <city> open
         (r"is\s+(.+?)\s+in\s+(.+?)\s+open", 1, 2),
-        # <name> in <city> open
         (r"(.+?)\s+in\s+(.+?)\s+open", 1, 2),
-        # is <name> open in <city>
         (r"is\s+(.+?)\s+open\s+in\s+(.+?)(?:\?|$)", 1, 2),
-        # <name> open in <city>
         (r"(.+?)\s+open\s+in\s+(.+?)(?:\?|$)", 1, 2),
     ]
 
@@ -61,11 +57,9 @@ def _extract_restaurant_open_query(message: str) -> tuple[str, str] | None:
         name = (m.group(name_group) or "").strip()
         city = (m.group(city_group) or "").strip()
         if name and city:
-            # Trim trailing filler (e.g., "san jose, ca" => "san jose, ca")
             city = re.sub(r"\s+(open|hours)\s*$", "", city, flags=re.IGNORECASE).strip()
             return name, city
 
-    # If we got the name but no city, we can't infer the timezone safely; bail out.
     return None
 
 
@@ -94,7 +88,6 @@ def _extract_recommendation_count(message: str) -> int | None:
     if any(k in text for k in ["best one", "top pick", "one best", "just one", "only one", "#1", "number 1", "first choice"]):
         return 1
 
-    # Also treat “best restaurant/place in <city>” as a request for a single top result.
     if (
         ("best" in text or "top" in text)
         and ("restaurant" in text or "resturent" in text or "place" in text)
@@ -125,18 +118,14 @@ def _extract_city_from_message(message: str) -> str | None:
         return None
     lower = text.lower()
 
-    # Prefer explicit "in <city>" / "near <city>".
     m = re.search(r"\b(?:in|near)\s+([a-zA-Z]+(?:\s+[a-zA-Z]+){0,2})\b", lower)
     if not m:
         return None
 
     city = (m.group(1) or "").strip()
-    # Avoid capturing filler words.
     if not city or city in {"open", "hours", "hour", "restaurant", "restaurants"}:
         return None
 
-    # Keep original casing as best we can by matching the span in original text.
-    # (Since we used `lower`, just title-case the extracted city.)
     return " ".join(w.capitalize() for w in city.split())
 
 
@@ -491,7 +480,6 @@ def _build_recommendation_reason(
             return None
         return "$".repeat(min(4, level))
 
-    # 1) Cuisine / tags match (mention the exact matched tag)
     desired_cuisine = (merged_filters.cuisine or "").strip() or None
     saved_tags = (pref_row.cuisine_tags or [])[:5] if pref_row is not None else []
     cand_tags = [t for t in (candidate.cuisine_tags or []) if t]
@@ -505,7 +493,6 @@ def _build_recommendation_reason(
         if t and any(c.lower() == t.lower() for c in cand_tags):
             return f"Matches your saved cuisine: {t}."
 
-    # 2) Dietary / ambiance keyword match (mention the exact matched keyword)
     checks: list[tuple[str, str]] = []
     if merged_filters.dietary:
         checks.append((merged_filters.dietary, "dietary"))
@@ -530,7 +517,6 @@ def _build_recommendation_reason(
                 return f"Fits your vibe: {nice}."
             return f"Includes “{nice}”."
 
-    # 3) Budget / price level match (mention the exact price bucket)
     desired_price = merged_filters.price if merged_filters.price is not None else pref_row.price_level
     if desired_price is not None and candidate.price_level is not None:
         diff = abs(int(desired_price) - int(candidate.price_level))
@@ -541,7 +527,6 @@ def _build_recommendation_reason(
         if diff == 1:
             return f"Close to your budget ({wanted_dollars} vs {cand_dollars})."
 
-    # 4) Fallback: popular / well-reviewed candidate
     rating = float(candidate.average_rating or 0.0)
     rc = int(candidate.review_count or 0)
     if rc >= 1000:
@@ -551,7 +536,6 @@ def _build_recommendation_reason(
     if rc >= 200:
         return "Well-reviewed and a strong match."
 
-    # Source-based final fallback
     return (
         "Recommended based on your preferences."
         if candidate.source == "local"
@@ -582,13 +566,11 @@ def process_chat_message(db: Session, user: User, body: AIChatRequest) -> AIChat
         prior = list(db.scalars(stmt).all())
         recent = _format_recent_chat(prior)
 
-    # Dedicated intent handler: open now / hours
     open_query = _extract_restaurant_open_query(body.message)
     if open_query:
         restaurant_name, city = open_query
         matched = _find_restaurant_by_name(db, restaurant_name)
         if matched is not None:
-            # If we have stored Yelp-style hours, answer deterministically.
             hours = matched.hours
             has_hours = isinstance(hours, list) and len(hours) > 0
             if has_hours:
@@ -619,7 +601,6 @@ def process_chat_message(db: Session, user: User, body: AIChatRequest) -> AIChat
                     session_id=session.id,
                 )
 
-        # Fall back to Tavily if we couldn't confirm via stored DB hours.
         tavily_query = f"{restaurant_name} in {city} open now hours"
         web_context = _format_web_context(
             tavily_service.search_web_context(tavily_query, max_results=4)
@@ -640,7 +621,6 @@ def process_chat_message(db: Session, user: User, body: AIChatRequest) -> AIChat
                 status = "Closed"
             else:
                 status = "Unknown"
-            # Ensure we return a clean, user-facing sentence.
             reply_text = f"{restaurant_name} in {city} is {status} right now."
 
         user_msg = ChatMessage(
@@ -679,8 +659,6 @@ def process_chat_message(db: Session, user: User, body: AIChatRequest) -> AIChat
     ):
         parsed = _heuristic_filters(body.message)
 
-    # Deterministic location fallback so queries like “best restaurant in fremont”
-    # don't accidentally use the user's default_city.
     if parsed.location is None:
         parsed.location = _extract_city_from_message(body.message)
 

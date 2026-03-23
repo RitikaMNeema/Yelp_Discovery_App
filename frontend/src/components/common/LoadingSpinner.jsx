@@ -1,6 +1,3 @@
-/**
- * Reusable loading indicator (inline or full-page).
- */
 
 export default function LoadingSpinner({
   label = "Loading…",

@@ -1,6 +1,3 @@
-/**
- * Reusable error banner (API failures, form errors).
- */
 
 export default function ErrorMessage({
   title = "Something went wrong",

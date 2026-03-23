@@ -52,16 +52,13 @@ class Restaurant(Base):
 
     average_rating: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
     review_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
-    # 1–4 ($ to $$$$); optional for legacy rows
     price_level: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    # Filter facets (Yelp categories → cuisine_tags; dietary/ambiance for manual or future enrichment)
     cuisine_tags: Mapped[list | None] = mapped_column(JSON, nullable=True)
     dietary_tags: Mapped[list | None] = mapped_column(JSON, nullable=True)
     ambiance_tags: Mapped[list | None] = mapped_column(JSON, nullable=True)
     yelp_url: Mapped[str | None] = mapped_column(String(512), nullable=True)
     hours: Mapped[list | None] = mapped_column(JSON, nullable=True)
     transactions: Mapped[list | None] = mapped_column(JSON, nullable=True)
-    # Full JSON from GET /v3/businesses/{id} on last Yelp import (all fields Fusion returns)
     yelp_fusion_snapshot: Mapped[dict | None] = mapped_column(JSON, nullable=True)
 
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)

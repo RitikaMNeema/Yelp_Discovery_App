@@ -2,10 +2,6 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 
-/**
- * Yelp-style “Explore searches in popular cities” — educational clone.
- * Links go to Explore with q + city query params.
- */
 
 function exploreHref({ q, city }) {
   const p = new URLSearchParams();
@@ -28,7 +24,6 @@ const CITIES = [
   "Brooklyn",
 ];
 
-/** Display suffix for section titles (Yelp-style “City, ST”). */
 const CITY_DISPLAY = {
   "San Jose": "San Jose, CA",
   "San Francisco": "San Francisco, CA",
@@ -42,7 +37,6 @@ const CITY_DISPLAY = {
   Brooklyn: "Brooklyn, NY",
 };
 
-/** Per-city content (demo data). */
 const CITY_CONTENT = {
   "San Jose": {
     top: [

@@ -212,7 +212,6 @@ def parse_filters_from_llm_output(raw: str | None) -> ParsedSearchFilters:
 
 
 def extract_filters(*, recent_chat: str, user_message: str) -> ParsedSearchFilters:
-    # LangChain handles prompt templating + structured JSON parsing into our Pydantic model.
     parser = PydanticOutputParser(pydantic_object=ParsedSearchFilters)
     template = (
         "Return ONLY a JSON object with these keys when known, and use null when unknown.\n"
@@ -238,7 +237,6 @@ def extract_filters(*, recent_chat: str, user_message: str) -> ParsedSearchFilte
     try:
         return parser.parse(stripped)
     except Exception:
-        # Keep the previous robust parsing as a fallback if the model output is imperfect.
         return parse_filters_from_llm_output(stripped)
 
 

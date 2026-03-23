@@ -6,9 +6,6 @@ import { ROUTES } from "../constants/routes";
 import { buildReturnPath } from "../utils/navigation";
 import ErrorMessage from "../components/common/ErrorMessage";
 
-/**
- * Owner login — same endpoint as diner; role is determined by account.
- */
 export default function OwnerLoginPage() {
   const { login: setAuth } = useAuth();
   const navigate = useNavigate();

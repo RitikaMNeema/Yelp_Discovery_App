@@ -1,7 +1,3 @@
-/**
- * Maps ``GET /restaurants/yelp/{id}`` JSON into the shape used by ``RestaurantDetailsPage``
- * (aligned with local ``GET /restaurants/{id}`` where possible).
- */
 export function normalizeYelpDetailForPage(api) {
   if (!api || typeof api !== "object") return null;
   const pr = String(api.price_range || "$$").trim();

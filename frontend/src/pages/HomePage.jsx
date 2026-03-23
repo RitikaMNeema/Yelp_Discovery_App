@@ -14,10 +14,6 @@ const browseCategories = [
   { label: "More", q: "services", icon: "✨" },
 ];
 
-/**
- * Yelp-style landing: rotating hero behind nav, recent activity, categories.
- * Layout inspired by [Yelp](https://www.yelp.com/) — educational clone.
- */
 export default function HomePage() {
   const navigate = useNavigate();
   const chat = useChatAssistant();

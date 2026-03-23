@@ -4,10 +4,6 @@ import Footer from "../components/common/Footer";
 import { ChatAssistantProvider } from "../context/ChatAssistantContext";
 import { ROUTES } from "../constants/routes";
 
-/**
- * Shell: nav + main + footer. Chat assistant is global within this layout.
- * Home uses full-bleed hero (fixed nav + carousel); other routes use constrained main.
- */
 export default function MainLayout() {
   const location = useLocation();
   const isHome = location.pathname === ROUTES.HOME;

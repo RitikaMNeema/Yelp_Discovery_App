@@ -44,7 +44,6 @@ def get_dashboard(db: Session, owner: User) -> OwnerDashboardResponse:
 
     total_restaurants = len(rid_list)
 
-    # Count and average across all reviews on owned restaurants
     agg = db.execute(
         select(
             func.count(Review.id),
@@ -54,7 +53,6 @@ def get_dashboard(db: Session, owner: User) -> OwnerDashboardResponse:
     total_reviews = int(agg[0] or 0)
     avg_rating = round(float(agg[1] or 0.0), 2)
 
-    # Recent reviews (last 10) with user and photos
     recent_stmt = (
         select(Review)
         .where(Review.restaurant_id.in_(rid_list))
@@ -65,7 +63,6 @@ def get_dashboard(db: Session, owner: User) -> OwnerDashboardResponse:
     recent_rows = list(db.scalars(recent_stmt).unique().all())
     recent = [_review_to_with_author(r) for r in recent_rows]
 
-    # Analytics: counts by rating
     by_rating = {5: 0, 4: 0, 3: 0, 2: 0, 1: 0}
     if total_reviews > 0:
         for r in db.execute(

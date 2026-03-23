@@ -9,9 +9,6 @@ import { getApiErrorMessage } from "../utils/apiError";
 import { ROUTES } from "../constants/routes";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 
-/**
- * Yelp-style “Find a business to review” landing + recently visited suggestions.
- */
 function ReviewHeroIllustration() {
   return (
     <div
@@ -141,7 +138,6 @@ async function loadSuggestionRestaurants(isAuthenticated) {
         }
       }
     } catch {
-      /* guest fallback below */
     }
   }
 
@@ -159,7 +155,6 @@ async function loadSuggestionRestaurants(isAuthenticated) {
       }
     }
   } catch {
-    /* empty */
   }
 
   return merged;

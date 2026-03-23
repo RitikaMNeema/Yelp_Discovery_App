@@ -23,9 +23,6 @@ function formatDate(iso) {
   }
 }
 
-/**
- * One review — readable body, clear author + date.
- */
 export default function ReviewCard({ review, className = "" }) {
   const {
     author_display_name,

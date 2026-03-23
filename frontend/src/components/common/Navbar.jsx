@@ -7,9 +7,6 @@ import SearchBar from "../search/SearchBar";
 import yelpLogoBrand from "../../assets/yelp-logo-brand.png";
 import yelpLogoHomeWhite from "../../assets/yelp-logo-white-clean.png";
 
-/**
- * Yelp-style header: brand, centered search (md+), directory links, category row on Explore.
- */
 export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();

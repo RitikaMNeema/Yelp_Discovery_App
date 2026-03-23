@@ -25,9 +25,6 @@ function Checkbox({ id, checked, onChange, disabled, label, hint }) {
   );
 }
 
-/**
- * Yelp-style slide-over “Filters” panel: Price, Suggested, Features, Distance, cuisines, Apply/Cancel.
- */
 export default function ExploreFilterDrawer({ open, draft, setDraft, onApply, onCancel }) {
   const [featuresExpanded, setFeaturesExpanded] = useState(false);
 

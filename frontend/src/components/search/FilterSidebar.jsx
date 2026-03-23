@@ -25,17 +25,12 @@ const sortOptions = [
   { value: "newest", label: "Newest" },
 ];
 
-/**
- * Left column filters. `mode="browse"` = multi price + open now.
- * `mode="explore"` = API-aligned: single price, sort, min rating, dietary/ambiance text.
- */
 export default function FilterSidebar({
   mode = "browse",
   value,
   onChange,
   className = "",
   sticky = true,
-  /** Explore: hide sort/min rating/price when using top bar + chips */
   compact = false,
 }) {
   const defaults = mode === "explore" ? defaultExplore : defaultBrowse;

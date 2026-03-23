@@ -36,7 +36,6 @@ class RestaurantCreate(RestaurantBase):
     cuisine_tags: list[str] | None = None
     dietary_tags: list[str] | None = None
     ambiance_tags: list[str] | None = None
-    # Optional initial photos (URLs); sort_order follows list order
     photo_urls: list[str] = Field(default_factory=list, max_length=10)
 
 
@@ -58,7 +57,6 @@ class RestaurantUpdate(BaseModel):
     ambiance_tags: list[str] | None = None
     is_active: bool | None = None
     is_claimed: bool | None = None
-    # When set (including []), replaces all listing photos; max 10 URLs
     photo_urls: list[str] | None = Field(None, max_length=10)
 
 

@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -6,7 +5,6 @@ export default {
       colors: {
         "yelp-red": "#d32323",
         "yelp-red-hover": "#af1f1f",
-        /** Slightly warmer off-white for section bands (directory-style) */
         "surface": {
           muted: "#f7f7f7",
           subtle: "#fafafa",
@@ -22,12 +20,10 @@ export default {
         ],
       },
       fontSize: {
-        /** Slightly tighter display for hero headlines */
         display: ["2.25rem", { lineHeight: "1.15", fontWeight: "700" }],
         "display-sm": ["1.875rem", { lineHeight: "1.2", fontWeight: "700" }],
       },
       boxShadow: {
-        /** Subtle card lift — directory / listing sites */
         card: "0 1px 2px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04)",
         "card-hover":
           "0 2px 4px rgba(0,0,0,0.06), 0 8px 20px rgba(0,0,0,0.08)",

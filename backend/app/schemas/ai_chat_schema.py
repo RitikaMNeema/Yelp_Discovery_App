@@ -13,8 +13,6 @@ class ChatHistoryTurn(BaseModel):
 class AIChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=8000)
     session_id: int | None = None
-    # If the client provides this, the backend will use it as the conversation context
-    # instead of (or in addition to) DB history.
     conversation_history: list[ChatHistoryTurn] | None = None
 
 

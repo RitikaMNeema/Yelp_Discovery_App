@@ -33,10 +33,6 @@ function mapServerMessage(m) {
   };
 }
 
-/**
- * Floating AI assistant: FAB + panel with history, suggestions, typing state.
- * Ref: `open()`, `sendText(text)`.
- */
 const ChatWidget = forwardRef(function ChatWidget(_props, ref) {
   const { isAuthenticated, loading: authLoading } = useAuth();
   const navigate = useNavigate();
@@ -69,7 +65,6 @@ const ChatWidget = forwardRef(function ChatWidget(_props, ref) {
   const loadLatestSession = useCallback(async () => {
     if (!isAuthenticated) return;
 
-    // If the user explicitly logged out previously, start fresh on next login.
     if (sessionStorage.getItem(RESET_ON_LOGIN_KEY) === "1") {
       sessionStorage.removeItem(RESET_ON_LOGIN_KEY);
       setSessionId(null);

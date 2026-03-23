@@ -1,7 +1,3 @@
-/**
- * Axios instance for backend API.
- * Automatically adds JWT to requests when available.
- */
 
 import axios from "axios";
 import { getToken } from "../utils/storage";
@@ -27,7 +23,6 @@ api.interceptors.response.use(
   (res) => res,
   (err) => {
     if (err.response?.status === 401) {
-      // Token expired or invalid — caller can use this to redirect to login
       window.dispatchEvent(new CustomEvent("auth:logout"));
     }
     return Promise.reject(err);

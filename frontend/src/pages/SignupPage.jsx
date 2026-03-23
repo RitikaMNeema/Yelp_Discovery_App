@@ -5,9 +5,6 @@ import { signup } from "../services/authService";
 import { ROUTES } from "../constants/routes";
 import ErrorMessage from "../components/common/ErrorMessage";
 
-/**
- * Diner signup — creates a user (role: user) account.
- */
 export default function SignupPage() {
   const { login: setAuth } = useAuth();
   const navigate = useNavigate();

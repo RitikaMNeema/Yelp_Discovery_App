@@ -22,12 +22,6 @@ import FavoritesPage from "../pages/FavoritesPage";
 import HistoryPage from "../pages/HistoryPage";
 import OwnerDashboardPage from "../pages/OwnerDashboardPage";
 
-/**
- * All app routes. Order matters for `/restaurants/*`: static segments before `:id`.
- *
- * Layout: MainLayout wraps public + authenticated pages and mounts the AI chat widget
- * (ChatAssistantProvider). Auth forms live inside the same shell so nav stays consistent.
- */
 export default function AppRoutes() {
   return (
     <BrowserRouter>

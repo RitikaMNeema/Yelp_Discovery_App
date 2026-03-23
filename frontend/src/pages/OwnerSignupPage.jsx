@@ -5,9 +5,6 @@ import { ownerSignup } from "../services/authService";
 import { ROUTES } from "../constants/routes";
 import ErrorMessage from "../components/common/ErrorMessage";
 
-/**
- * Owner signup — creates an owner (role: owner) account.
- */
 export default function OwnerSignupPage() {
   const { login: setAuth } = useAuth();
   const navigate = useNavigate();

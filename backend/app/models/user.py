@@ -42,7 +42,6 @@ class User(Base):
     country: Mapped[str | None] = mapped_column(String(64), nullable=True)
     bio: Mapped[str | None] = mapped_column(String(500), nullable=True)
     avatar_url: Mapped[str | None] = mapped_column(String(512), nullable=True)
-    # e.g. ["English", "Gujarati"] — stored as MySQL JSON
     languages: Mapped[list[str] | None] = mapped_column(JSON, nullable=True)
     gender: Mapped[str | None] = mapped_column(String(32), nullable=True)
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)

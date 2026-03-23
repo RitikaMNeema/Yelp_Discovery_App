@@ -22,9 +22,7 @@ class UserPreference(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
 
     default_city: Mapped[str | None] = mapped_column(String(120), nullable=True)
-    # 1 = $, 4 = $$$$; null = no preference
     price_level: Mapped[int | None] = mapped_column(Integer, nullable=True)
-    # e.g. ["Italian", "Japanese"] — stored as MySQL JSON
     cuisine_tags: Mapped[list | None] = mapped_column(JSON, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now(), nullable=False)

@@ -1,6 +1,5 @@
 import { ROUTES } from "./routes";
 
-/** Yelp-style top category row on the homepage (links to Explore with a query). */
 export const HOME_TOP_CATEGORIES = [
   { label: "Restaurants", q: "restaurants" },
   { label: "Shopping", q: "shopping" },
@@ -19,7 +18,6 @@ export function exploreWithQuery(q) {
   return s ? `${ROUTES.EXPLORE}?${s}` : ROUTES.EXPLORE;
 }
 
-/** Yelp-style category row on Explore (dropdown chevrons are visual only). */
 export const EXPLORE_CATEGORY_ROW = [
   { label: "Restaurants", q: "restaurants" },
   { label: "Home & Garden", q: "home services" },

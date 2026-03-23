@@ -51,9 +51,6 @@ export default function HistoryPage() {
         } else {
           const data = await getHistory({ limit: 100, offset: 0 });
           if (!cancelled) {
-            // Diner activity should focus on browsing + profile updates.
-            // Reviews are visible via the Owner side (and separate review UI),
-            // so we hide review_* events here.
             const filtered = (data.items || []).filter((it) => !String(it?.action || "").startsWith("review_"));
             setItems(filtered);
             setTotal(filtered.length);

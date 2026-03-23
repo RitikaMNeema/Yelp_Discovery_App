@@ -22,7 +22,6 @@ class ReviewCreate(BaseModel):
 class ReviewUpdate(BaseModel):
     rating: int | None = Field(None, ge=1, le=5)
     body: str | None = Field(None, max_length=5000)
-    # If sent (including []), replaces all existing review photos with this list (max 5 URLs).
     photo_urls: list[str] | None = Field(None, max_length=5)
 
 

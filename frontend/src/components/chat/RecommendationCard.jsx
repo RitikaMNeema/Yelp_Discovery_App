@@ -11,9 +11,6 @@ function cuisineLine(tags) {
   return tags.slice(0, 4).join(" · ");
 }
 
-/**
- * One AI recommendation — links to `/restaurants/:id` when we have a local id.
- */
 export default function RecommendationCard({ item, reason, className = "" }) {
   const {
     id,

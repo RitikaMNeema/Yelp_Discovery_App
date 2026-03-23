@@ -13,9 +13,6 @@ function uploadErrorMessage(payload, statusText) {
   return statusText || "Upload failed";
 }
 
-/**
- * Restaurant search and detail — matches GET /restaurants and GET /restaurants/{id}.
- */
 
 function cleanParams(obj) {
   const out = {};
@@ -26,25 +23,8 @@ function cleanParams(obj) {
   return out;
 }
 
-/** Backend allows up to 500 rows per page; use `page` to fetch the rest. */
 export const RESTAURANT_LIST_MAX_LIMIT = 500;
 
-/**
- * @param {object} opts
- * @param {string} [opts.query] — broad text (name, description, city, address)
- * @param {string} [opts.city] — omit to include all cities in the database
- * @param {string} [opts.zip]
- * @param {string} [opts.cuisine]
- * @param {string} [opts.keyword]
- * @param {number} [opts.price] — 1–4
- * @param {number} [opts.rating] — minimum average rating
- * @param {string} [opts.dietary]
- * @param {string} [opts.ambiance]
- * @param {string} [opts.sort_by] — rating_desc | rating_asc | name_asc | name_desc | newest
- * @param {number} [opts.page]
- * @param {number} [opts.limit] — 1…500
- * @param {boolean} [opts.full] — if true, each item matches GET /restaurants/:id (all fields)
- */
 export async function searchRestaurants(opts = {}) {
   const lim = opts.limit ?? 20;
   const params = cleanParams({
@@ -67,11 +47,6 @@ export async function searchRestaurants(opts = {}) {
   return data;
 }
 
-/**
- * Fetches every matching restaurant by walking pages (same filters as `searchRestaurants`).
- * @param {object} opts — same as searchRestaurants, except `page` is ignored
- * @param {number} [opts.pageSize] — per request (default 100, max 500)
- */
 export async function searchAllRestaurants(opts = {}) {
   const pageSize = Math.min(
     Math.max(1, opts.pageSize ?? 100),
@@ -92,7 +67,6 @@ export async function searchAllRestaurants(opts = {}) {
   return all;
 }
 
-/** Map Explore sort chip to Yelp Fusion ``sort_by`` (see GET /restaurants/yelp). */
 export function yelpExploreSortParam(sortBy) {
   const m = {
     rating_desc: "rating",
@@ -104,10 +78,6 @@ export function yelpExploreSortParam(sortBy) {
   return m[sortBy] || "best_match";
 }
 
-/**
- * Live Yelp Fusion search for Explore (not limited to MySQL rows).
- * Returns the same ``items`` / ``total`` / ``page`` shape as ``searchRestaurants``.
- */
 export async function searchYelpRestaurantsExplore(opts = {}) {
   const lim = Math.min(Math.max(1, opts.limit ?? 20), 50);
   const params = cleanParams({
@@ -142,7 +112,6 @@ export async function getRestaurant(id) {
   return data;
 }
 
-/** Live Yelp business detail (same data the backend proxies from Fusion). */
 export async function getYelpRestaurantDetail(yelpBusinessId, opts = {}) {
   const yid = encodeURIComponent(String(yelpBusinessId).trim());
   const params =
@@ -175,7 +144,6 @@ export async function claimRestaurant(restaurantId, message) {
   return data;
 }
 
-/** Upload one image; returns absolute URL (requires auth). */
 export async function uploadRestaurantPhoto(file) {
   const formData = new FormData();
   formData.append("file", file);

@@ -4,9 +4,6 @@ import RestaurantPhotoUploadSection from "../restaurants/RestaurantPhotoUploadSe
 const MAX_PHOTOS = 5;
 const MAX_BODY = 5000;
 
-/**
- * Create / edit review: star rating + comment (+ optional uploaded photos).
- */
 export default function ReviewForm({
   initialRating = 0,
   initialBody = "",

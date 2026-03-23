@@ -21,9 +21,6 @@ function SortInfoIcon() {
   );
 }
 
-/**
- * Title row: ``Browsing Restaurants`` / ``Browsing {query}`` / ``Browsing {city} Restaurant`` + Sort.
- */
 export default function ExploreBrowseHeader({ browseTitle, sortBy, onSortChange, loading = false }) {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-5 py-4 border-b border-[#ebebeb] bg-white">

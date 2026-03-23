@@ -4,10 +4,6 @@ import { api } from "../services/api";
 
 export const AuthContext = createContext(null);
 
-/**
- * AuthProvider wraps the app and holds user state + JWT.
- * On mount, if a token exists, it fetches the current user.
- */
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);

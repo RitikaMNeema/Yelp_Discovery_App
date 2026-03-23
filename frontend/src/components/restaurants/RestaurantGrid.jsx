@@ -1,9 +1,6 @@
 import RestaurantCard from "./RestaurantCard";
 import YelpRestaurantRow from "./YelpRestaurantRow";
 
-/**
- * Single-column search results (readable scan, like directory listings).
- */
 function safeDomId(id) {
   return String(id).replace(/[^a-zA-Z0-9_-]/g, "_");
 }
@@ -15,7 +12,6 @@ export default function RestaurantGrid({
   variant = "card",
   highlightedId = null,
   onRowHover,
-  /** Prefix for each `<li id>` (for scroll-into-view). */
   rowIdPrefix = "explore-restaurant",
 }) {
   if (!restaurants.length) {

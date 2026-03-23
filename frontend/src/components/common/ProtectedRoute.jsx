@@ -3,10 +3,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { ROUTES } from "../../constants/routes";
 import LoadingSpinner from "./LoadingSpinner";
 
-/**
- * Wraps routes that require login. Uses AuthContext.
- * Sends users to /login with return path in location state.
- */
 export default function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
   const location = useLocation();

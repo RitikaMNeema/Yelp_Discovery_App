@@ -1,8 +1,5 @@
 import { api } from "./api";
 
-/**
- * AI assistant — requires auth.
- */
 
 export async function sendChatMessage(message, sessionId = null, conversationHistory = null) {
   const payload = {

@@ -472,7 +472,6 @@ def normalize_yelp_business(raw: dict[str, Any]) -> dict[str, Any]:
     image_url = raw.get("image_url")
     if isinstance(image_url, str) and image_url.strip() and image_url not in photos:
         photos.insert(0, image_url.strip())
-    # Persist every photo URL Fusion returns (no cap — mirrored in restaurant_photos rows)
 
     transactions: list[str] | None = None
     raw_tx = raw.get("transactions")

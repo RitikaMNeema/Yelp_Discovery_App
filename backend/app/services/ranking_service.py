@@ -22,7 +22,6 @@ from typing import Any
 
 from app.schemas.ai_chat_schema import ParsedSearchFilters
 
-# Tunable weights (must sum to 1.0 for easy explanation)
 W_PREFERENCE = 0.35
 W_QUERY = 0.25
 W_RATING = 0.25
@@ -79,8 +78,6 @@ def _preference_match(
         diff = abs(want_price - candidate.price_level)
         parts.append(max(0.0, 1.0 - diff * 0.35))
 
-    # Additional preference signals (dietary / ambiance / occasion / timing).
-    # These rely on `candidate.raw_text` containing those tags (we enrich raw_text for local candidates).
     raw = (candidate.raw_text or "").lower()
     if applied.dietary and applied.dietary.lower() in raw:
         parts.append(0.9)

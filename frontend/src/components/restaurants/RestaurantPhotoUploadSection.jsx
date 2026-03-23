@@ -3,9 +3,6 @@ import { uploadRestaurantPhoto } from "../../services/restaurantService";
 
 const ACCEPT = "image/jpeg,image/png,image/webp,image/gif";
 
-/**
- * Browse files from disk, upload to API, build ordered photo URL list (max 10).
- */
 export default function RestaurantPhotoUploadSection({
   urls,
   onUrlsChange,

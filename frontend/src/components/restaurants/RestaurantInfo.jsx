@@ -1,6 +1,3 @@
-/**
- * Location & contact — sidebar card on business page.
- */
 
 function formatAddress({ address_line, city, state, postal_code, country }) {
   const line2 = [city, state, postal_code].filter(Boolean).join(", ");
@@ -54,7 +51,6 @@ export default function RestaurantInfo({
       ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressQuery)}`
       : null;
 
-  /** Same embedded map UI for every listing: coords preferred, else address search. */
   const mapEmbedQuery = hasCoords ? `${lat},${lng}` : addressQuery;
   const mapEmbedSrc =
     hasMap && mapEmbedQuery.trim()

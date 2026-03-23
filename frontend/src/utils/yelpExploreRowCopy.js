@@ -1,4 +1,3 @@
-/** Deterministic dummy copy for Explore rows when Yelp search omits review text (demo / parity with Yelp UI). */
 
 function hashSeed(id, listIndex) {
   const s = `${id}#${listIndex}`;
@@ -38,10 +37,6 @@ const SNIPPETS = [
     `Friendly staff, fair prices, and consistent quality. Good option for groups—our party of six had no issues getting seated.`,
 ];
 
-/**
- * @param {string} [description] — from API when present
- * @returns {string}
- */
 export function resolveReviewSnippet(description, id, listIndex, cityShort) {
   const t = (description || "").trim();
   if (t.length > 40) return t;
@@ -50,9 +45,6 @@ export function resolveReviewSnippet(description, id, listIndex, cityShort) {
   return SNIPPETS[i](city);
 }
 
-/**
- * Merge Yelp categories with filler keywords so the row always shows tag pills (Yelp-style).
- */
 export function resolveKeywords(cuisineTags, id, listIndex) {
   const fromApi = Array.isArray(cuisineTags) ? cuisineTags.filter(Boolean) : [];
   const h = hashSeed(id, listIndex);
@@ -66,13 +58,6 @@ export function resolveKeywords(cuisineTags, id, listIndex) {
   return out.slice(0, 6);
 }
 
-/**
- * @returns {{
- *   type: 'open_until' | 'open_now' | 'opens_in' | 'closed',
- *   until?: string,
- *   minutes?: number
- * }}
- */
 export function resolveHoursStatus(restaurant, listIndex) {
   const id = String(restaurant.id ?? "");
   const h = hashSeed(id, listIndex);

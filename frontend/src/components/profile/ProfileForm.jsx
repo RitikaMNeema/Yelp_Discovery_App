@@ -61,9 +61,6 @@ const US_STATE_OPTIONS = [
 
 const GENDER_OPTIONS = ["", "Prefer not to say", "Male", "Female", "Non-binary", "Other"];
 
-/**
- * Profile edit form — matches UserUpdate schema.
- */
 export default function ProfileForm({
   initialValues,
   onSubmit,

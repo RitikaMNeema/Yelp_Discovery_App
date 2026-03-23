@@ -1,8 +1,5 @@
 import { useRef, useEffect } from "react";
 
-/**
- * Message composer with send — grows slightly with text.
- */
 export default function ChatInput({
   value,
   onChange,

@@ -3,9 +3,6 @@ import { getToken } from "../utils/storage";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-/**
- * User profile and preferences API.
- */
 
 export async function getProfile() {
   const { data } = await api.get("/users/me");
@@ -22,7 +19,6 @@ export async function setProfilePhoto(avatar_url) {
   return data;
 }
 
-/** Upload one image file; returns { url } and updates avatar on backend. */
 export async function uploadProfilePhoto(file) {
   const formData = new FormData();
   formData.append("file", file);
@@ -59,7 +55,6 @@ export async function getHistory({ limit = 100, offset = 0 } = {}) {
   return data;
 }
 
-/** Record a detail-page view (signed-in); powers owner analytics. */
 export async function recordRestaurantView(restaurantId) {
   await api.post("/users/me/restaurant-views", { restaurant_id: restaurantId });
 }

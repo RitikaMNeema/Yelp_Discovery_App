@@ -1,8 +1,3 @@
-/**
- * Explore search filter shape (quick chips + filter drawer).
- * `suggestedOpenNow` maps to Yelp `open_now` and local DB hours filtering.
- * Some other flags are UI-only until the API stores payment / amenities.
- */
 
 export const defaultExploreFilters = {
   price: null,
@@ -22,7 +17,6 @@ export const defaultExploreFilters = {
   featureAppointment: false,
   featureCoatCheck: false,
   featureFlowerDelivery: false,
-  /** null = no distance filter; UI-only until backend supports radius */
   distanceMode: null,
 };
 
@@ -30,12 +24,10 @@ const cuisineOptions = ["Italian", "Japanese", "Mexican", "American", "Indian"];
 
 export { cuisineOptions };
 
-/** Effective sort for GET /restaurants */
 export function effectiveSortBy(filters) {
   return filters.sortBy || "rating_desc";
 }
 
-/** Effective ambiance keyword for GET /restaurants */
 export function effectiveAmbiance(filters) {
   if (filters.suggestedKids && filters.suggestedGroups) return "family";
   if (filters.suggestedKids) return "family_friendly";

@@ -1,8 +1,5 @@
 import { api } from "./api";
 
-/**
- * Favorites — requires auth.
- */
 
 export async function listMyFavorites() {
   const { data } = await api.get("/favorites/me");

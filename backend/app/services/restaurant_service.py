@@ -27,7 +27,6 @@ from app.services import yelp_fusion_service
 from app.utils.filters import RestaurantSearchParams, like_fragment
 from app.utils.open_now import tz_for_search_city, yelp_hours_open_now
 
-# Max rows scanned when ``open_now`` is true (filter in app; city/other SQL filters still apply).
 OPEN_NOW_SCAN_CAP = 2000
 
 

@@ -41,9 +41,6 @@ function priceDots(level) {
   return "$".repeat(Math.min(4, level));
 }
 
-/**
- * Yelp-style “Recent activity” strip using newest listings from the API (all cities).
- */
 export default function HomeRecentActivity() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);

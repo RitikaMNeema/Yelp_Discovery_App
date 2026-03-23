@@ -13,7 +13,6 @@ function priceDots(level) {
   return "$".repeat(Math.min(4, level));
 }
 
-/** "San Jose, CA" → "San Jose" for compact location chip. */
 function cityShortLine(city, state) {
   if (!city) return "";
   const first = city.split(",")[0].trim();
@@ -85,9 +84,6 @@ function HoursStatusText({ status }) {
   return null;
 }
 
-/**
- * Yelp-style results row (numbered title, rating, location • price • hours, review snippet, keyword tags).
- */
 export default function YelpRestaurantRow({
   restaurant,
   isHighlighted = false,

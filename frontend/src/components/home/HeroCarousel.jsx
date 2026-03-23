@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 
-/**
- * Full-bleed Yelp-style hero: rotating backgrounds, headline, CTA, vertical slide rail.
- */
 export const HERO_SLIDES = [
   {
     image:

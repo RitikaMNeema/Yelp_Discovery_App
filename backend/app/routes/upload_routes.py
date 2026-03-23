@@ -89,7 +89,6 @@ async def upload_profile_photo(
     base = str(request.base_url).rstrip("/")
     url = f"{base}/files/profile_photos/{name}"
 
-    # Persist avatar URL in MySQL (keeps existing `/users/me/profile-photo` logic).
     user_service.set_profile_photo_url(db, user, ProfilePhotoUrlBody(avatar_url=url))
 
     return {"url": url}

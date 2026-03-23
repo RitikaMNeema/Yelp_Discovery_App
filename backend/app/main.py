@@ -75,7 +75,6 @@ app.add_middleware(
 
 app.add_exception_handler(AppHTTPException, app_http_exception_handler)
 
-# --- Router registration (order only affects OpenAPI tag ordering slightly) ---
 app.include_router(auth_routes.router)
 app.include_router(user_routes.router)
 app.include_router(preference_routes.router)

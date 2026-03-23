@@ -5,7 +5,6 @@ from sqlalchemy.orm import sessionmaker
 
 from app.core.config import settings
 
-# pool_pre_ping avoids stale MySQL connections after idle timeouts
 engine = create_engine(
     settings.database_url,
     pool_pre_ping=True,

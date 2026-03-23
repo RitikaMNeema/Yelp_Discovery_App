@@ -28,7 +28,6 @@ class UserHistory(Base):
         nullable=True,
         index=True,
     )
-    # e.g. restaurant_view, profile_update, profile_photo_update, preferences_update
     action: Mapped[str] = mapped_column(
         String(64),
         nullable=False,
@@ -40,7 +39,6 @@ class UserHistory(Base):
     restaurant: Mapped[Restaurant | None] = relationship("Restaurant", back_populates="history_entries")
 
 
-# Values for `UserHistory.action` (keep in sync when logging from services)
 HISTORY_RESTAURANT_VIEW = "restaurant_view"
 HISTORY_PROFILE_UPDATE = "profile_update"
 HISTORY_PROFILE_PHOTO_UPDATE = "profile_photo_update"

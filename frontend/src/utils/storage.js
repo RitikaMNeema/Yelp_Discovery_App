@@ -1,7 +1,3 @@
-/**
- * localStorage helpers for JWT and auth.
- * Keys kept in one place so they're easy to change.
- */
 
 const TOKEN_KEY = "restaurant_lab_token";
 

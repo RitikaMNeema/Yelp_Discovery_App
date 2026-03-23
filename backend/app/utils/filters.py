@@ -8,7 +8,6 @@ from fastapi import HTTPException, status
 AllowedSort = Literal["rating_desc", "rating_asc", "name_asc", "name_desc", "newest"]
 
 
-# Max page size for GET /restaurants (use pagination for larger result sets).
 RESTAURANT_LIST_MAX_LIMIT = 500
 
 

@@ -1,6 +1,3 @@
-/**
- * Empty list / no results — Yelp-style calm empty panel.
- */
 
 export default function EmptyState({
   icon,

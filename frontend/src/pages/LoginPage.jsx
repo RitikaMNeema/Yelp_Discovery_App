@@ -6,9 +6,6 @@ import { ROUTES } from "../constants/routes";
 import { buildReturnPath } from "../utils/navigation";
 import ErrorMessage from "../components/common/ErrorMessage";
 
-/**
- * Diner login — shared login endpoint, role determined by account type.
- */
 export default function LoginPage() {
   const { login: setAuth } = useAuth();
   const navigate = useNavigate();
