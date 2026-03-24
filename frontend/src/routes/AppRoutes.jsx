@@ -27,7 +27,6 @@ export default function AppRoutes() {
     <BrowserRouter>
       <Routes>
         <Route element={<MainLayout />}>
-          {/* —— Public —— */}
           <Route path={ROUTES.HOME} element={<HomePage />} />
           <Route path={ROUTES.EXPLORE} element={<ExplorePage />} />
           <Route path={ROUTES.WRITE_REVIEW} element={<WriteReviewHubPage />} />
@@ -36,7 +35,6 @@ export default function AppRoutes() {
           <Route path={ROUTES.OWNER_LOGIN} element={<OwnerLoginPage />} />
           <Route path={ROUTES.OWNER_SIGNUP} element={<OwnerSignupPage />} />
 
-          {/* —— Restaurants (public detail; auth for write flows) —— */}
           <Route
             path={ROUTES.RESTAURANTS_NEW}
             element={
@@ -80,7 +78,6 @@ export default function AppRoutes() {
           <Route path="/restaurants/yelp/:yelpId" element={<RestaurantDetailsPage />} />
           <Route path="/restaurants/:id" element={<RestaurantDetailsPage />} />
 
-          {/* —— Account (signed-in diners) —— */}
           <Route
             path={ROUTES.PROFILE}
             element={
@@ -114,7 +111,6 @@ export default function AppRoutes() {
             }
           />
 
-          {/* —— Owner dashboard —— */}
           <Route
             path={ROUTES.OWNER_DASHBOARD}
             element={

@@ -1,60 +1,49 @@
 # Frontend (React + Vite)
 
-This is the UI for the Yelp_Demo project.
+This is the client app for the Yelp-style restaurant project.
 
-It includes:
-- login/signup pages
-- explore/search restaurants
-- restaurant details + reviews
-- favorites, profile, preferences
-- owner pages
-- AI chat widget
+## What it includes
 
-## Tech used
-- React
-- Vite
-- React Router
-- Tailwind CSS
-- Axios
+- Home, Explore, Restaurant Details
+- Add/Edit listing for owners
+- Write reviews, favorites, history
+- AI dining assistant chat widget
 
-## Folder
-- `src/` -> all pages, components, services
-- `public/` -> static files
+## Requirements
+
+- Node.js 18+
+- Backend API running on `http://localhost:8000`
 
 ## Setup
 
 ```bash
 cd frontend
+cp .env.example .env
 npm install
 ```
 
-## Run in dev mode
-
-```bash
-npm run dev
-```
-
-Default URL is usually:
-- `http://localhost:5173`
-
-## Environment variable
-
-Create `.env` (optional) if backend is not running on localhost:
+Set in `.env`:
 
 ```env
 VITE_API_URL=http://localhost:8000
 ```
 
-If deployed, set this to your live backend URL.
+## Run
 
-## Build for production
+```bash
+npm run dev -- --port 5173
+```
+
+Open: [http://localhost:5173](http://localhost:5173)
+
+## Build
 
 ```bash
 npm run build
-```
-
-Preview build locally:
-
-```bash
 npm run preview
 ```
+
+## Notes
+
+- Make sure backend CORS allows your frontend port.
+- If API calls fail, check `VITE_API_URL` first.

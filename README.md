@@ -169,7 +169,26 @@ npm run dev
 
 ---
 
-## 8) UI screenshots section (headings)
+## 8) Deployment (live)
+
+### Frontend (Vercel)
+- Deploy `frontend/`
+- Set env: `VITE_API_URL=https://<your-backend-url>`
+
+### Backend (Render/Railway/Fly)
+- Deploy `backend/`
+- Required env vars:
+  - `DATABASE_URL`
+  - `SECRET_KEY`
+  - `CORS_ORIGINS`
+- Optional env vars:
+  - `YELP_API_KEY`
+  - `GEMINI_API_KEY`
+  - `TAVILY_API_KEY`
+
+---
+
+## 9) UI screenshots section (headings)
 
 Add your screenshots in `./screenshots/` and replace file names below.
 
@@ -211,7 +230,7 @@ Add your screenshots in `./screenshots/` and replace file names below.
 
 ---
 
-## 9) My Experience Building This Project
+## 10) My Experience Building This Project
 
 This project taught me how a complete end-to-end product works, not just one file or one page.
 

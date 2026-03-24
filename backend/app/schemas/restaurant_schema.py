@@ -15,6 +15,12 @@ class RestaurantPhotoResponse(BaseModel):
     created_at: datetime
 
 
+class RestaurantHourInput(BaseModel):
+    day: int = Field(..., ge=0, le=6, description="0=Mon, 6=Sun")
+    start: str = Field(..., min_length=4, max_length=4, description="24h HHMM")
+    end: str = Field(..., min_length=4, max_length=4, description="24h HHMM")
+
+
 class RestaurantBase(BaseModel):
     name: str = Field(..., min_length=1, max_length=255)
     description: str | None = None
@@ -36,6 +42,7 @@ class RestaurantCreate(RestaurantBase):
     cuisine_tags: list[str] | None = None
     dietary_tags: list[str] | None = None
     ambiance_tags: list[str] | None = None
+    hours: list[RestaurantHourInput] | None = None
     photo_urls: list[str] = Field(default_factory=list, max_length=10)
 
 
@@ -55,6 +62,7 @@ class RestaurantUpdate(BaseModel):
     cuisine_tags: list[str] | None = None
     dietary_tags: list[str] | None = None
     ambiance_tags: list[str] | None = None
+    hours: list[RestaurantHourInput] | None = None
     is_active: bool | None = None
     is_claimed: bool | None = None
     photo_urls: list[str] | None = Field(None, max_length=10)

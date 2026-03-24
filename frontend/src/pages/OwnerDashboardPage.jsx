@@ -120,17 +120,12 @@ export default function OwnerDashboardPage() {
     if (tab === "reviews") loadReviewsTab();
   }, [tab, loadReviewsTab]);
 
-  const reviewsByRating = dashboard?.analytics?.reviews_by_rating;
-  const analytics = useMemo(
-    () =>
-      reviewsByRating && typeof reviewsByRating === "object" ? reviewsByRating : {},
-    [reviewsByRating],
-  );
+  const analytics = dashboard?.analytics?.reviews_by_rating || {};
   const sentiment = dashboard?.analytics?.sentiment || {};
   const totalViews = dashboard?.analytics?.total_restaurant_views ?? 0;
   const maxRatingCount = useMemo(
     () => Math.max(0, ...[1, 2, 3, 4, 5].map((s) => analytics[s] ?? 0)),
-    [analytics],
+    [analytics]
   );
 
   const reviewTotalPages = Math.max(1, Math.ceil((reviewsState.total || 0) / REVIEW_LIMIT));
@@ -549,6 +544,10 @@ export default function OwnerDashboardPage() {
           </div>
         </div>
 
+        <p className="text-center text-xs text-gray-500 mt-8">
+          Tip: leave this tab open or click Refresh after diners submit reviews — data loads live from your
+          API.
+        </p>
       </div>
     </div>
   );

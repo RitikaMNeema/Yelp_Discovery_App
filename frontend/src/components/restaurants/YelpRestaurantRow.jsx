@@ -13,7 +13,7 @@ function priceDots(level) {
   return "$".repeat(Math.min(4, level));
 }
 
-function cityShortLine(city) {
+function cityShortLine(city, state) {
   if (!city) return "";
   const first = city.split(",")[0].trim();
   return first || city;
@@ -96,6 +96,7 @@ export default function YelpRestaurantRow({
     name,
     description,
     city,
+    state,
     average_rating,
     review_count,
     price_level,
@@ -106,7 +107,7 @@ export default function YelpRestaurantRow({
   } = restaurant;
 
   const imgSrc = primary_photo_url || getRestaurantImageFallback(name, cuisine_tags);
-  const locShort = cityShortLine(city) || "Nearby";
+  const locShort = cityShortLine(city, state) || "Nearby";
   const price = priceDots(price_level) || "$$";
   const tags = resolveKeywords(cuisine_tags, id, listIndex);
   const mapsHref = directionsUrl(restaurant);

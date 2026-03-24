@@ -151,7 +151,7 @@ def search_yelp_businesses_strict(
 
     headers = {"Authorization": f"Bearer {key}"}
     try:
-        with httpx.Client(timeout=15.0) as client:
+        with httpx.Client(timeout=15.0, trust_env=False) as client:
             response = client.get(YELP_SEARCH_URL, params=params, headers=headers)
     except httpx.RequestError as exc:
         raise AppHTTPException(
@@ -258,7 +258,7 @@ def search_yelp_businesses(
 
     headers = {"Authorization": f"Bearer {key}"}
     try:
-        with httpx.Client(timeout=15.0) as client:
+        with httpx.Client(timeout=15.0, trust_env=False) as client:
             response = client.get(YELP_SEARCH_URL, params=params, headers=headers)
     except httpx.RequestError:
         return []
@@ -290,7 +290,7 @@ def fetch_business_details(yelp_business_id: str) -> dict[str, Any]:
     headers = {"Authorization": f"Bearer {key}"}
 
     try:
-        with httpx.Client(timeout=20.0) as client:
+        with httpx.Client(timeout=20.0, trust_env=False) as client:
             response = client.get(url, headers=headers)
     except httpx.RequestError as exc:
         raise AppHTTPException(

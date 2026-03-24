@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 
-const DEFAULT_CENTER = [37.3382, -121.8863]; // San Jose
+const DEFAULT_CENTER = [37.3382, -121.8863];
 const DEFAULT_ZOOM = 10;
 
 const OSM_TILE = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
@@ -80,7 +80,7 @@ function NumberedMarker({ point, active, onSelect }) {
         iconSize: [28, 28],
         iconAnchor: [14, 14],
       }),
-    [active]
+    [point.label, active]
   );
 
   return (
@@ -156,10 +156,6 @@ export default function YelpMapPanel({
         onFullscreen={handleFullscreen}
       />
 
-      {/*
-        Leaflet needs a box with a definite height. Percentage heights break inside flex
-        unless this pane is position:relative and the map fills it with absolute inset-0.
-      */}
       <div
         ref={mapPaneRef}
         className="relative z-0 min-h-[280px] w-full min-w-0 flex-1 overflow-hidden lg:min-h-0"

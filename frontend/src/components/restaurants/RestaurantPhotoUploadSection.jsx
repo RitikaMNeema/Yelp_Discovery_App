@@ -61,9 +61,6 @@ export default function RestaurantPhotoUploadSection({
         >
           {uploading ? "Uploading…" : "Browse files"}
         </button>
-        <span className="text-xs text-gray-500">
-          JPEG, PNG, WebP, or GIF · up to 5MB each · {urls.length}/{maxPhotos} photos
-        </span>
       </div>
       {uploadErr ? <p className="mt-2 text-sm text-red-600 font-medium">{uploadErr}</p> : null}
 

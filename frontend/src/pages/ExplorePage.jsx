@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useChatAssistant } from "../context/ChatAssistantContext";
@@ -24,6 +24,24 @@ import {
 } from "../constants/exploreFilters";
 
 const PAGE_LIMIT = 20;
+const GENERIC_RESTAURANT_TERMS = new Set([
+  "restaurant",
+  "restaurants",
+  "food",
+  "dining",
+  "eat",
+  "eats",
+]);
+
+function safeExploreRowDomId(id) {
+  return String(id).replace(/[^a-zA-Z0-9_-]/g, "_");
+}
+
+function normalizeLocalQuery(rawQuery) {
+  const trimmed = String(rawQuery || "").trim();
+  if (!trimmed) return undefined;
+  return GENERIC_RESTAURANT_TERMS.has(trimmed.toLowerCase()) ? undefined : trimmed;
+}
 
 export default function ExplorePage() {
   const { isAuthenticated } = useAuth();
@@ -41,6 +59,7 @@ export default function ExplorePage() {
   const [searchAsMapMoves, setSearchAsMapMoves] = useState(false);
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
   const [draftFilters, setDraftFilters] = useState(defaultExploreFilters);
+  const [dataSource, setDataSource] = useState("yelp");
   const [yelpFallbackReason, setYelpFallbackReason] = useState("");
 
   const browseTitle = useMemo(() => {
@@ -70,6 +89,7 @@ export default function ExplorePage() {
 
     const cuisine =
       filters.cuisines.length > 0 ? filters.cuisines.join(" ") : undefined;
+    const localQuery = normalizeLocalQuery(searchTerm);
 
     try {
       const yelpPromise = searchYelpRestaurantsExplore({
@@ -83,7 +103,7 @@ export default function ExplorePage() {
       });
 
       const localPromise = searchRestaurants({
-        query: searchTerm.trim() || undefined,
+        query: localQuery,
         city: city.trim() || undefined,
         cuisine,
         price: filters.price ?? undefined,
@@ -160,12 +180,14 @@ export default function ExplorePage() {
       setTotal(localTotal + yelpTotal);
 
       if (yelpSettled.status === "fulfilled") {
+        setDataSource("yelp");
         setYelpFallbackReason("");
         setError("");
         return;
       }
 
       if (localItems.length) {
+        setDataSource("local");
         setYelpFallbackReason(
           getApiErrorMessage(
             yelpSettled.reason,
@@ -175,6 +197,7 @@ export default function ExplorePage() {
         setError("");
       } else {
         setYelpFallbackReason("");
+        setDataSource("local");
         setError(
           getApiErrorMessage(
             yelpSettled.reason,
@@ -189,6 +212,7 @@ export default function ExplorePage() {
       setError(getApiErrorMessage(err, "Could not load restaurants"));
       setItems([]);
       setTotal(0);
+      setDataSource("local");
     } finally {
       setLoading(false);
     }
@@ -244,7 +268,6 @@ export default function ExplorePage() {
     <div className="w-full flex-1 min-h-0 flex flex-col bg-[#f0f0f0] pb-6">
       <div className="w-full flex-1 flex flex-col min-h-0 py-0">
         <div className="flex flex-col lg:flex-row lg:items-stretch flex-1 min-h-0 lg:min-h-[calc(100vh-10.5rem)] border-y lg:border-x-0 border-[#ebebeb] bg-white shadow-sm overflow-hidden">
-          {/* List column */}
           <div className="flex-1 min-w-0 flex flex-col lg:border-r border-[#ebebeb]">
             <ExploreBrowseHeader
               browseTitle={browseTitle}
@@ -352,7 +375,6 @@ export default function ExplorePage() {
             )}
           </div>
 
-          {/* Map column — flex-col + h-full so Leaflet gets a real height */}
           <div className="hidden lg:flex lg:flex-[0_0_36%] xl:flex-[0_0_34%] min-h-0 min-w-[260px] max-w-none shrink-0 flex-col border-l border-[#ebebeb] bg-[#e5e5e5]">
             <YelpMapPanel
               className="h-full min-h-0 w-full flex-1"
@@ -365,7 +387,6 @@ export default function ExplorePage() {
           </div>
         </div>
 
-        {/* Mobile map under list */}
         <div className="lg:hidden w-full border-t border-gray-200 overflow-hidden bg-white shadow-sm">
           <YelpMapPanel
             restaurants={items}

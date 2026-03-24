@@ -10,6 +10,15 @@ import { ROUTES } from "../constants/routes";
 
 const input =
   "w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-200 focus:border-yelp-red";
+const DAYS = [
+  { value: 0, label: "Monday" },
+  { value: 1, label: "Tuesday" },
+  { value: 2, label: "Wednesday" },
+  { value: 3, label: "Thursday" },
+  { value: 4, label: "Friday" },
+  { value: 5, label: "Saturday" },
+  { value: 6, label: "Sunday" },
+];
 
 function parseTags(str) {
   if (!str?.trim()) return null;
@@ -19,6 +28,16 @@ function parseTags(str) {
     .filter(Boolean)
     .slice(0, 20);
   return tags.length ? tags : null;
+}
+
+function toCompactTime(value) {
+  if (!value || typeof value !== "string") return "";
+  return value.replace(":", "");
+}
+
+function toDisplayTime(compact) {
+  if (!compact || compact.length !== 4) return compact || "";
+  return `${compact.slice(0, 2)}:${compact.slice(2)}`;
 }
 
 export default function EditRestaurantPage() {
@@ -31,6 +50,12 @@ export default function EditRestaurantPage() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [photoUrls, setPhotoUrls] = useState([]);
+  const [hours, setHours] = useState([]);
+  const [hoursDraft, setHoursDraft] = useState({
+    day: 0,
+    from: "",
+    to: "",
+  });
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -80,6 +105,23 @@ export default function EditRestaurantPage() {
           (a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0)
         );
         setPhotoUrls(sortedPhotos.map((p) => p.photo_url).filter(Boolean));
+        const existingHours = Array.isArray(r.hours)
+          ? r.hours
+              .filter(
+                (h) =>
+                  h &&
+                  Number.isInteger(h.day) &&
+                  h.day >= 0 &&
+                  h.day <= 6 &&
+                  typeof h.start === "string" &&
+                  typeof h.end === "string" &&
+                  h.start.length === 4 &&
+                  h.end.length === 4
+              )
+              .map((h) => ({ day: Number(h.day), start: h.start, end: h.end }))
+              .sort((a, b) => a.day - b.day || a.start.localeCompare(b.start))
+          : [];
+        setHours(existingHours);
         setForm({
           name: r.name || "",
           description: r.description || "",
@@ -115,6 +157,10 @@ export default function EditRestaurantPage() {
       setError("Name and city are required");
       return;
     }
+    if ((hoursDraft.from && !hoursDraft.to) || (!hoursDraft.from && hoursDraft.to)) {
+      setError("Set both 'from' and 'to' time before saving.");
+      return;
+    }
     setSubmitting(true);
     try {
       const lat = form.latitude.trim() ? Number(form.latitude) : null;
@@ -136,6 +182,7 @@ export default function EditRestaurantPage() {
         cuisine_tags: parseTags(form.cuisine_tags),
         dietary_tags: parseTags(form.dietary_tags),
         ambiance_tags: parseTags(form.ambiance_tags),
+        hours: hours.length ? hours : [],
         is_active: form.is_active,
         photo_urls: photoUrls.slice(0, 10),
       };
@@ -146,6 +193,30 @@ export default function EditRestaurantPage() {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const addHoursRow = () => {
+    if (!hoursDraft.from || !hoursDraft.to) {
+      setError("Choose both 'from' and 'to' time.");
+      return;
+    }
+    const start = toCompactTime(hoursDraft.from);
+    const end = toCompactTime(hoursDraft.to);
+    if (!start || !end || start >= end) {
+      setError("'To' time must be after 'from' time.");
+      return;
+    }
+    setHours((prev) =>
+      [...prev, { day: Number(hoursDraft.day), start, end }].sort(
+        (a, b) => a.day - b.day || a.start.localeCompare(b.start)
+      )
+    );
+    setHoursDraft((d) => ({ ...d, from: "", to: "" }));
+    if (error) setError("");
+  };
+
+  const removeHoursRow = (idx) => {
+    setHours((prev) => prev.filter((_, i) => i !== idx));
   };
 
   if (authLoading || loading) {
@@ -244,19 +315,75 @@ export default function EditRestaurantPage() {
             <input className={input} value={form.ambiance_tags} onChange={set("ambiance_tags")} />
           </div>
           <div className="sm:col-span-2">
-            <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-800">
-              <input type="checkbox" checked={form.is_active} onChange={set("is_active")} className="rounded border-gray-300 text-yelp-red" />
-              Listing is active (visible in search)
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Business hours</label>
+            <div className="rounded-md border border-gray-200 p-3 space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
+                <select
+                  className={`${input} sm:col-span-2`}
+                  value={hoursDraft.day}
+                  onChange={(e) => setHoursDraft((d) => ({ ...d, day: Number(e.target.value) }))}
+                >
+                  {DAYS.map((d) => (
+                    <option key={d.value} value={d.value}>
+                      {d.label}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  className={input}
+                  type="time"
+                  value={hoursDraft.from}
+                  onChange={(e) => setHoursDraft((d) => ({ ...d, from: e.target.value }))}
+                />
+                <input
+                  className={input}
+                  type="time"
+                  value={hoursDraft.to}
+                  onChange={(e) => setHoursDraft((d) => ({ ...d, to: e.target.value }))}
+                />
+              </div>
+              <button
+                type="button"
+                onClick={addHoursRow}
+                className="px-3 py-2 rounded-md border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              >
+                Save day and time
+              </button>
+
+              {hours.length ? (
+                <div className="space-y-2 pt-1">
+                  {hours.map((h, idx) => (
+                    <div
+                      key={`${h.day}-${h.start}-${h.end}-${idx}`}
+                      className="flex items-center justify-between gap-3 rounded-md border border-gray-200 bg-gray-50 px-3 py-2"
+                    >
+                      <span className="text-sm text-gray-800">
+                        {DAYS.find((d) => d.value === h.day)?.label || `Day ${h.day}`}:
+                        {" "}
+                        {toDisplayTime(h.start)} - {toDisplayTime(h.end)}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => removeHoursRow(idx)}
+                        className="text-sm font-semibold text-yelp-red hover:underline"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-xs text-gray-500">
+                  No hours set. Add one or more day/time ranges.
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
         <div className="pt-2 border-t border-gray-100">
           <h2 className="text-sm font-bold text-gray-900 mb-2">Photos</h2>
-          <p className="text-xs text-gray-600 mb-3">
-            Browse from your computer or reorder by removing and re-uploading. Saving replaces all photos with the
-            list below (max 10).
-          </p>
+          <p className="text-xs text-gray-600 mb-3">Browse from your computer.</p>
           <RestaurantPhotoUploadSection
             urls={photoUrls}
             onUrlsChange={setPhotoUrls}

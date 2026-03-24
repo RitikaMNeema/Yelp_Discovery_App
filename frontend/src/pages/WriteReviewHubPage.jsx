@@ -16,7 +16,6 @@ function ReviewHeroIllustration() {
       aria-hidden
     >
       <svg viewBox="0 0 320 240" className="w-full h-auto text-yelp-red">
-        {/* skyline */}
         <g fill="#d1d5db" opacity="0.85">
           <rect x="20" y="140" width="28" height="80" rx="2" />
           <rect x="52" y="120" width="36" height="100" rx="2" />
@@ -26,7 +25,6 @@ function ReviewHeroIllustration() {
           <rect x="200" y="115" width="44" height="105" rx="2" />
           <rect x="248" y="145" width="52" height="75" rx="2" />
         </g>
-        {/* stars trail */}
         <g fill="currentColor">
           <path
             transform="translate(175,48) scale(0.55)"
@@ -45,7 +43,6 @@ function ReviewHeroIllustration() {
             d="M10 1.5l2.5 6.5 7 .5-5.5 4.5 2 6.8L10 15.8 3.5 19.3l2-6.8L0 8.5l7-.5z"
           />
         </g>
-        {/* figure + pencil */}
         <ellipse cx="118" cy="208" rx="36" ry="8" fill="#000" opacity="0.08" />
         <circle cx="118" cy="118" r="22" fill="#fca5a5" />
         <path
@@ -138,7 +135,6 @@ async function loadSuggestionRestaurants(isAuthenticated) {
         }
       }
     } catch {
-      // Optional history: ignore if unavailable
     }
   }
 
@@ -156,7 +152,6 @@ async function loadSuggestionRestaurants(isAuthenticated) {
       }
     }
   } catch {
-    // Fallback search: ignore if API fails
   }
 
   return merged;

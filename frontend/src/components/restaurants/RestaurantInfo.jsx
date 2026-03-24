@@ -5,7 +5,7 @@ function formatAddress({ address_line, city, state, postal_code, country }) {
   return parts.join("\n");
 }
 
-const DAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const DAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 function formatTime(s) {
   if (!s || typeof s !== "string") return "";
@@ -138,7 +138,7 @@ export default function RestaurantInfo({
         <div className="mt-5 pt-4 border-t border-gray-100">
           <dt className="text-gray-500 font-semibold text-xs uppercase tracking-wide">Hours</dt>
           <dd className="mt-2 space-y-1.5 text-sm text-gray-900">
-            {hours
+            {[...(hours || [])]
               .sort((a, b) => (a.day ?? 99) - (b.day ?? 99))
               .map((h, i) => (
                 <div key={i} className="flex justify-between gap-4">

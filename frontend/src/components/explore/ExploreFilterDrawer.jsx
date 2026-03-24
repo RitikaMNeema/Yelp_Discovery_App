@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { cuisineOptions } from "../../constants/exploreFilters";
+import { cuisineOptions, defaultExploreFilters } from "../../constants/exploreFilters";
 
 const sectionTitle = "text-sm font-bold text-gray-900";
 const divider = "border-b border-gray-200";
@@ -37,7 +37,7 @@ export default function ExploreFilterDrawer({ open, draft, setDraft, onApply, on
     } catch {
       return "";
     }
-  }, []);
+  }, [open]);
 
   const set = (patch) => setDraft({ ...draft, ...patch });
 
@@ -67,7 +67,6 @@ export default function ExploreFilterDrawer({ open, draft, setDraft, onApply, on
         </div>
 
         <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-2">
-          {/* Price */}
           <section className={`pb-4 ${divider}`}>
             <h3 className={`${sectionTitle} pt-2 pb-3`}>Price</h3>
             <div className="flex rounded-lg border border-gray-200 overflow-hidden divide-x divide-gray-200">
@@ -90,7 +89,6 @@ export default function ExploreFilterDrawer({ open, draft, setDraft, onApply, on
             </div>
           </section>
 
-          {/* Suggested */}
           <section className={`py-4 ${divider}`}>
             <h3 className={`${sectionTitle} pb-2`}>Suggested</h3>
             <div className="flex flex-col">
@@ -136,7 +134,6 @@ export default function ExploreFilterDrawer({ open, draft, setDraft, onApply, on
             </div>
           </section>
 
-          {/* Features */}
           <section className={`py-4 ${divider}`}>
             <h3 className={`${sectionTitle} pb-2`}>Features</h3>
             <div className="flex flex-col">
@@ -194,7 +191,6 @@ export default function ExploreFilterDrawer({ open, draft, setDraft, onApply, on
             </button>
           </section>
 
-          {/* Distance — Yelp-style radios (UI-only until radius search exists) */}
           <section className={`py-4 ${divider}`}>
             <h3 className={`${sectionTitle} pb-2`}>Distance</h3>
             <div className="flex flex-col gap-0" role="radiogroup" aria-label="Distance">
@@ -223,7 +219,6 @@ export default function ExploreFilterDrawer({ open, draft, setDraft, onApply, on
             <p className="text-xs text-gray-500 mt-1">Distance filters are visual only in this demo.</p>
           </section>
 
-          {/* Category / cuisine */}
           <section className={`py-4 ${divider}`}>
             <h3 className={`${sectionTitle} pb-2`}>Category</h3>
             <div className="flex flex-col">
@@ -247,7 +242,6 @@ export default function ExploreFilterDrawer({ open, draft, setDraft, onApply, on
             </div>
           </section>
 
-          {/* More */}
           <section className="py-4">
             <h3 className={`${sectionTitle} pb-2`}>More</h3>
             <label className="block text-xs font-semibold text-gray-500 uppercase mb-1.5">
@@ -293,7 +287,6 @@ export default function ExploreFilterDrawer({ open, draft, setDraft, onApply, on
           </section>
         </div>
 
-        {/* Footer */}
         <div
           className={`flex items-center justify-between gap-3 px-4 py-4 border-t border-gray-200 bg-white shrink-0`}
         >
