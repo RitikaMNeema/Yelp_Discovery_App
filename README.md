@@ -1,6 +1,6 @@
-# Yelp_Demo - End-to-End Restaurant Discovery App
+# Yelp - End-to-End Restaurant Discovery App
 
-This is a full-stack student project inspired by Yelp-style restaurant discovery.
+This is a full-stack project inspired by Yelp-style restaurant discovery.
 
 It supports:
 - user login/signup
@@ -59,7 +59,7 @@ flowchart LR
 
 ---
 
-## 4) End-to-end workflow (simple)
+## 4) End-to-end workflow 
 
 ```mermaid
 flowchart TD
@@ -73,7 +73,7 @@ flowchart TD
     G --> H[Frontend renders result]
 ```
 
-### Step-by-step in simple words
+### Step-by-step 
 1. User clicks/searches/sends chat message in frontend.
 2. Frontend calls backend API endpoint.
 3. Backend validates user and reads DB data.
@@ -116,7 +116,7 @@ flowchart TD
     P --> Z
 ```
 
-### AI answer sources (important)
+### AI answer sources 
 - **First preference:** local MySQL data
 - **If needed:** Yelp supplemental data
 - **For extra context:** Tavily web snippets
@@ -166,71 +166,63 @@ cd frontend
 npm install
 npm run dev
 ```
-
 ---
 
-## 8) Deployment (live)
-
-### Frontend (Vercel)
-- Deploy `frontend/`
-- Set env: `VITE_API_URL=https://<your-backend-url>`
-
-### Backend (Render/Railway/Fly)
-- Deploy `backend/`
-- Required env vars:
-  - `DATABASE_URL`
-  - `SECRET_KEY`
-  - `CORS_ORIGINS`
-- Optional env vars:
-  - `YELP_API_KEY`
-  - `GEMINI_API_KEY`
-  - `TAVILY_API_KEY`
-
----
-
-## 9) UI screenshots section (headings)
-
-Add your screenshots in `./screenshots/` and replace file names below.
+## 8) UI screenshots section 
 
 ### Login UI
-![Login UI](./screenshots/login.png)
+<img width="1709" height="1304" alt="image" src="https://github.com/user-attachments/assets/0c8a5fb8-814a-4609-8726-4dc5d76adef0" />
+
 
 ### Signup UI
-![Signup UI](./screenshots/signup.png)
+<img width="1710" height="1302" alt="image" src="https://github.com/user-attachments/assets/195bdf7f-7187-4c5d-aea2-77b095716b17" />
+
 
 ### Home Dashboard UI
-![Home Dashboard UI](./screenshots/home-dashboard.png)
+<img width="1708" height="1303" alt="image" src="https://github.com/user-attachments/assets/fc58ee4f-1559-4c0f-98dd-94e40264d738" />
+
 
 ### Explore Restaurants UI
-![Explore Restaurants UI](./screenshots/explore-restaurants.png)
+<img width="1713" height="1308" alt="image" src="https://github.com/user-attachments/assets/618f489b-c460-4a40-b782-7007a1f8a9cd" />
+
+<img width="1714" height="1314" alt="image" src="https://github.com/user-attachments/assets/72aef7bb-bb8e-4e94-b306-6173bcdc2fb6" />
+
 
 ### Restaurant Details UI
-![Restaurant Details UI](./screenshots/restaurant-details.png)
+<img width="1712" height="1304" alt="image" src="https://github.com/user-attachments/assets/24f8b62c-3689-4d52-aeed-44ad038ac121" />
+
 
 ### Write Review UI
-![Write Review UI](./screenshots/write-review.png)
+<img width="1715" height="1304" alt="image" src="https://github.com/user-attachments/assets/c16e6170-d252-468c-be65-351242a00472" />
+
 
 ### Profile UI
-![Profile UI](./screenshots/profile.png)
+<img width="1711" height="1303" alt="image" src="https://github.com/user-attachments/assets/2d924ddb-2c4e-46ad-8e97-c85c7ae84a1e" />
+
 
 ### Favorites UI
-![Favorites UI](./screenshots/favorites.png)
+<img width="1711" height="1309" alt="image" src="https://github.com/user-attachments/assets/3ebbecc7-7824-4d3d-b023-1df67a2217c4" />
+
 
 ### AI Assistant Chat UI
-![AI Assistant Chat UI](./screenshots/ai-chatbot.png)
+<img width="1709" height="1306" alt="image" src="https://github.com/user-attachments/assets/9ff41a3f-ddc0-4aad-868f-faebe1731a78" />
+
 
 ### Owner Dashboard UI
-![Owner Dashboard UI](./screenshots/owner-dashboard.png)
+<img width="1714" height="1306" alt="image" src="https://github.com/user-attachments/assets/e1f6cc5f-bfee-409d-a18a-bc28ae8fdca7" />
+
 
 ### Owner Listings UI
-![Owner Listings UI](./screenshots/owner-listings.png)
+<img width="1707" height="1306" alt="image" src="https://github.com/user-attachments/assets/25d48525-816b-4ca9-820e-b8abe6400081" />
+
 
 ### Owner Activity UI
-![Owner Activity UI](./screenshots/owner-activity.png)
+<img width="1712" height="1301" alt="image" src="https://github.com/user-attachments/assets/5e096108-8b18-4d9c-a96a-ee896864a960" />
+
 
 ---
 
-## 10) My Experience Building This Project
+## 9) My Experience Building This Project
 
 This project taught me how a complete end-to-end product works, not just one file or one page.
 
@@ -241,3 +233,12 @@ The AI assistant part was the most challenging and most interesting. I learned h
 I also improved my debugging skills during this project. Many times, one small issue in filtering, routing, or data shape caused wrong results in chat or explore pages. Fixing those issues helped me understand full-stack flow deeply.
 
 Overall, this project gave me strong practical experience in building, debugging, and improving a real-world data-driven web application.
+
+---
+
+## 10) Work Distribution
+
+This lab was completed by Manav and Ritika.
+
+- Manav: Frontend and Backend
+- Ritika: Backend and AI Integration
